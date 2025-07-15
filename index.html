@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Design Wiki | Learn Graphic Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2A2F4F; /* Deep navy for elegance */
+            --secondary: #F4A261; /* Warm orange for creativity */
+            --accent: #E76F51; /* Coral for vibrant highlights */
+            --background: #FDFDFD; /* Clean white for clarity */
+            --text-light: #1A1A1A; /* Dark gray for readability */
+            --text-dark: #1A1A1A; /* Consistent dark for contrast */
+            --glass: rgba(255, 255, 255, 0.4); /* Subtle glass effect */
+            --glass-hover: rgba(255, 255, 255, 0.6); /* Brighter hover effect */
+            --shadow: rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
+            --glow: rgba(244, 162, 97, 0.7); /* Warm orange glow */
+            --correct: #34C759; /* Green for correct answers */
+            --incorrect: #FF3B30; /* Red for incorrect answers */
+        }
+
+        [data-theme="dark"] {
+            --primary: #3D405B; /* Softer navy for dark mode */
+            --secondary: #F4A261; /* Same orange for consistency */
+            --accent: #E76F51; /* Same coral for vibrancy */
+            --background: #1C2526; /* Dark teal for depth */
+            --text-light: #F5F6F5; /* Light gray for readability */
+            --text-dark: #1A1A1A; /* Retained for consistency */
+            --glass: rgba(255, 255, 255, 0.1); /* Subtle glass in dark mode */
+            --glass-hover: rgba(255, 255, 255, 0.2); /* Slightly brighter hover */
+            --shadow: rgba(0, 0, 0, 0.4); /* Stronger shadow for dark mode */
+            --glow: rgba(244, 162, 97, 0.7); /* Same warm glow */
+            --correct: #34C759; /* Same green for consistency */
+            --incorrect: #FF3B30; /* Same red for consistency */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text-light);
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .creative-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, rgba(231, 111, 81, 0.3) 0%, var(--background) 70%);
+        }
+
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            background: var(--secondary);
+            opacity: 0.3;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .circle { border-radius: 50%; }
+        .square { border-radius: 10px; }
+        .triangle { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        .mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mode-toggle:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .mode-toggle i {
+            font-size: 1.4rem;
+            color: var(--text-light);
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 1;
+            padding-bottom: 80px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 20px 60px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--text-light), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 8px var(--glow)); }
+            100% { filter: drop-shadow(0 0 20px var(--accent)); }
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            opacity: 0.85;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .knowledge-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 6px 20px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .knowledge-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px var(--shadow);
+            border-color: var(--secondary);
+        }
+
+        .knowledge-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .knowledge-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .knowledge-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .knowledge-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px var(--glow);
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .knowledge-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .knowledge-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--text-light);
+        }
+
+        .knowledge-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--secondary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .knowledge-link:hover {
+            color: var(--text-light);
+            transform: translateX(5px);
+        }
+
+        .detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            z-index: 1002;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .detail-container {
+            background: linear-gradient(135deg, var(--glass), rgba(231, 111, 81, 0.2));
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 6px 25px var(--shadow);
+            position: relative;
+            color: var(--text-light);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .detail-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 4vw, 2rem);
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .detail-content {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        .detail-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        .detail-section:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .detail-subheader {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .detail-subheader::after {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background: var(--secondary);
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            border-radius: 1px;
+        }
+
+        .detail-list {
+            list-style-type: none;
+            padding-left: 15px;
+        }
+
+        .detail-list li {
+            position: relative;
+            margin-bottom: 10px;
+            padding-left: 15px;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            line-height: 1.7;
+            transition: color 0.3s ease;
+        }
+
+        .detail-list li:hover {
+            color: var(--secondary);
+        }
+
+        .detail-list li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        .detail-list li strong {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .quiz-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .quiz-question {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 10px;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--glass);
+            position: relative;
+        }
+
+        .quiz-option:hover {
+            background: var(--glass-hover);
+            border-color: var(--secondary);
+        }
+
+        .quiz-option input {
+            margin-right: 10px;
+        }
+
+        .quiz-option label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .quiz-option.correct::after {
+            content: '✔';
+            position: absolute;
+            right: 10px;
+            color: var(--correct);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .quiz-option.incorrect::after {
+            content: '✘';
+            position: absolute;
+            right: 10px;
+            color: var(--incorrect);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            display: none;
+        }
+
+        .quiz-result.success {
+            color: var(--correct);
+        }
+
+        .quiz-result.error {
+            color: var(--incorrect);
+        }
+
+        .submit-quiz, .close-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 15px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .submit-quiz:hover, .close-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px var(--glow);
+        }
+
+        .image-slider {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slider-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .slider-nav button {
+            background: var(--glass);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: background 0.3s ease;
+        }
+
+        .slider-nav button:hover {
+            background: var(--secondary);
+        }
+
+        footer {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-top: 2px solid var(--secondary);
+            padding: 20px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--text-light);
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                padding: 100px 15px 50px;
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 6vw, 3.5rem);
+            }
+
+            .knowledge-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 20px;
+            }
+
+            .detail-container {
+                padding: 25px;
+                max-width: 700px;
+                max-height: 90vh;
+            }
+
+            .slider-image {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 80px 15px 40px;
+            }
+
+            .hero-title {
+                font-size: clamp(1.8rem, 5vw, 3rem);
+            }
+
+            .section-title {
+                font-size: clamp(1.6rem, 4vw, 2rem);
+            }
+
+            .detail-container {
+                padding: 20px;
+                max-width: 95%;
+            }
+
+            .slider-image {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .knowledge-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .knowledge-card {
+                padding: 20px;
+            }
+
+            .knowledge-title {
+                font-size: 1.3rem;
+            }
+
+            .detail-container {
+                padding: 15px;
+                max-width: 95%;
+            }
+
+            .detail-title {
+                font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+            }
+
+            .submit-quiz, .close-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+
+            .slider-image {
+                height: 200px;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease both;
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <div class="creative-background">
+        <div class="shapes" id="shapes"></div>
+    </div>
+
+    <div class="mode-toggle" onclick="toggleTheme()">
+        <i class="fas fa-sun"></i>
+    </div>
+
+    <div class="main-container">
+        <section class="hero">
+            <h1 class="hero-title">Design Wiki</h1>
+            <p class="hero-subtitle">Your Ultimate Resource for Mastering Graphic Design</p>
+        </section>
+
+        <div class="container">
+            <section class="section" id="image-gallery">
+                <h2 class="section-title">Design Inspiration Gallery</h2>
+                <div class="image-slider">
+                    <div class="slider-container" id="sliderContainer">
+                        <img src="modernposter.jpg"  alt="Poster Design" class="slider-image">
+                        <img src="typography.png" alt="Typography Design" class="slider-image" >
+                        <img src="branding.png" alt="Branding Design" class="slider-image">
+                        <img src="digital illustration.png" alt="Digital Illustration"  class="slider-image">
+                    </div>
+                    <div class="slider-nav">
+                        <button onclick="prevSlide()">&#10094;</button>
+                        <button onclick="nextSlide()">&#10095;</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="design-concepts">
+                <h2 class="section-title">Core Design Concepts</h2>
+                <div class="knowledge-grid">
+                    <div class="knowledge-card fade-in-up" data-knowledge="color-theory">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-palette"></i></div>
+                            <h3 class="knowledge-title">Color Theory</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Learn how colors interact and influence emotions in design.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('color-theory')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="typography">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-font"></i></div>
+                            <h3 class="knowledge-title">Typography</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Master the art of selecting and arranging typefaces.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('typography')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="layout-composition">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-th"></i></div>
+                            <h3 class="knowledge-title">Layout & Composition</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Understand principles for effective visual arrangements.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('layout-composition')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="branding">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-shield-alt"></i></div>
+                            <h3 class="knowledge-title">Branding</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Create cohesive identities that resonate with audiences.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('branding')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="digital-tools">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-laptop-code"></i></div>
+                            <h3 class="knowledge-title">Digital Design Tools</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Explore software like Adobe Photoshop and Illustrator.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('digital-tools')">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="ux-ui">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-mobile-alt"></i></div>
+                            <h3 class="knowledge-title">UX/UI Design</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Design user-friendly interfaces for digital products.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('ux-ui')">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="practical-projects">
+                <h2 class="section-title">Practical Projects</h2>
+                <div class="knowledge-grid">
+                    <div class="knowledge-card fade-in-up" data-knowledge="project-poster">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-paint-brush"></i></div>
+                            <h3 class="knowledge-title">Create a Poster</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Design a vibrant event poster using color theory and typography.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('project-poster')">Start Project</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="project-logo">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-shield-alt"></i></div>
+                            <h3 class="knowledge-title">Design a Logo</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Craft a unique logo for a fictional brand.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('project-logo')">Start Project</a>
+                        </div>
+                    </div>
+                    <div class="knowledge-card fade-in-up" data-knowledge="project-social">
+                        <div class="knowledge-header">
+                            <div class="knowledge-icon"><i class="fas fa-share-alt"></i></div>
+                            <h3 class="knowledge-title">Social Media Graphics</h3>
+                        </div>
+                        <div class="knowledge-content">
+                            <p class="knowledge-description">Create engaging visuals for social media campaigns.</p>
+                            <a href="#" class="knowledge-link" onclick="toggleDetail('project-social')">Start Project</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="detail-overlay" id="detailOverlay">
+            <div class="detail-container">
+                <h3 class="detail-title" id="detailTitle"></h3>
+                <div class="detail-content" id="detailContent"></div>
+                <button class="close-btn" onclick="closeDetail()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Built with passion by <a href="https://wa.me/+2348128197651" target="_blank">Sisco Ask</a> | © <span id="footer-year"></span> Design Wiki
+    </footer>
+
+
+    <script>
+        const knowledgeDetails = {
+            'color-theory': {
+                title: 'Color Theory',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Overview</h4>
+                        <p>Color theory is the foundation of effective graphic design, guiding how colors are combined to evoke emotions and create harmony.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Key Concepts</h4>
+                        <ul class="detail-list">
+                            <li><strong>Color Wheel</strong>: A circular arrangement of colors showing relationships (primary, secondary, tertiary).</li>
+                            <li><strong>Color Harmony</strong>: Schemes like complementary (opposite colors), analogous (adjacent colors), and triadic (three evenly spaced colors).</li>
+                            <li><strong>Psychology of Color</strong>: Colors influence emotions (e.g., red for energy, blue for calm).</li>
+                            <li><strong>Application</strong>: Use in branding, UI, and marketing to guide viewer perception.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Example</h4>
+                        <p>Design a poster using a complementary color scheme (e.g., blue and orange) to create high contrast and visual interest.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Common Mistakes</h4>
+                        <ul class="detail-list">
+                            <li><strong>Mistake</strong>: Using too many colors, causing visual clutter. <strong>Fix</strong>: Limit to 2-3 main colors with accents.</li>
+                            <li><strong>Mistake</strong>: Ignoring accessibility (e.g., low contrast). <strong>Fix</strong>: Ensure text-background contrast ratios meet WCAG standards.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Tip</h4>
+                        <p>Use tools like Adobe Color or Coolors to experiment with color schemes.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Fun Fact</h4>
+                        <p>McDonald’s uses red and yellow to stimulate appetite and energy!</p>
+                    </div>
+                    <div class="detail-section quiz-container" id="quiz-color-theory">
+                        <h4 class="detail-subheader">Practice Quiz</h4>
+                        <div class="quiz-question">1. What is a complementary color scheme?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Colors next to each other</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Colors opposite each other</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Three evenly spaced colors</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Single color variations</label></div>
+                        </div>
+                        <div class="quiz-question">2. Which color is associated with calmness?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Red</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) Blue</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) Yellow</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) Orange</label></div>
+                        </div>
+                        <div class="quiz-question">3. What is the primary purpose of the color wheel?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) To mix paints</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) To show color relationships</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) To adjust brightness</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) To select fonts</label></div>
+                        </div>
+                        <button class="submit-quiz" onclick="checkQuiz('color-theory', {q1: 'b', q2: 'b', q3: 'b'})">Submit Quiz</button>
+                        <div class="quiz-result" id="result-color-theory"></div>
+                    </div>
+                `
+            },
+            'typography': {
+                title: 'Typography',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Overview</h4>
+                        <p>Typography is the art of arranging text to make it readable, visually appealing, and effective in communication.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Key Concepts</h4>
+                        <ul class="detail-list">
+                            <li><strong>Typefaces vs. Fonts</strong>: Typeface is the design (e.g., Helvetica); font is the specific style (e.g., Helvetica Bold).</li>
+                            <li><strong>Hierarchy</strong>: Use size, weight, and spacing to guide viewer attention.</li>
+                            <li><strong>Kerning & Leading</strong>: Adjust space between letters (kerning) and lines (leading) for readability.</li>
+                            <li><strong>Font Pairing</strong>: Combine complementary fonts (e.g., serif with sans-serif).</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Example</h4>
+                        <p>Create a poster with a bold sans-serif headline and a clean serif body text for contrast and readability.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Common Mistakes</h4>
+                        <ul class="detail-list">
+                            <li><strong>Mistake</strong>: Overusing decorative fonts. <strong>Fix</strong>: Reserve them for accents, not body text.</li>
+                            <li><strong>Mistake</strong>: Poor kerning. <strong>Fix</strong>: Adjust spacing for visual balance.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Tip</h4>
+                        <p>Use Google Fonts to explore free, high-quality typefaces for your designs.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Fun Fact</h4>
+                        <p>Helvetica, a sans-serif font, is used in countless logos for its clean, neutral look!</p>
+                    </div>
+                    <div class="detail-section quiz-container" id="quiz-typography">
+                        <h4 class="detail-subheader">Practice Quiz</h4>
+                        <div class="quiz-question">1. What is kerning?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Line spacing</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Letter spacing</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Font size</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Font weight</label></div>
+                        </div>
+                        <div class="quiz-question">2. What is the purpose of typographic hierarchy?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) To choose colors</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) To guide viewer attention</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) To select images</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) To adjust brightness</label></div>
+                        </div>
+                        <div class="quiz-question">3. Which font pairing is most effective?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) Two decorative fonts</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) Serif and sans-serif</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) Two serif fonts</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) Two sans-serif fonts</label></div>
+                        </div>
+                        <button class="submit-quiz" onclick="checkQuiz('typography', {q1: 'b', q2: 'b', q3: 'b'})">Submit Quiz</button>
+                        <div class="quiz-result" id="result-typography"></div>
+                    </div>
+                `
+            },
+            'layout-composition': {
+                title: 'Layout & Composition',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Overview</h4>
+                        <p>Layout and composition involve arranging visual elements to create balanced, effective designs.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Key Concepts</h4>
+                        <ul class="detail-list">
+                            <li><strong>Grid Systems</strong>: Use grids to align elements consistently.</li>
+                            <li><strong>Balance</strong>: Symmetrical or asymmetrical arrangements for visual stability.</li>
+                            <li><strong>White Space</strong>: Use negative space to avoid clutter and enhance focus.</li>
+                            <li><strong>Focal Points</strong>: Direct attention with size, color, or placement.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Example</h4>
+                        <p>Design a magazine layout with a grid, placing a large image as the focal point and text in aligned columns.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Common Mistakes</h4>
+                        <ul class="detail-list">
+                            <li><strong>Mistake</strong>: Overcrowding elements. <strong>Fix</strong>: Use white space to let the design breathe.</li>
+                            <li><strong>Mistake</strong>: Misaligned elements. <strong>Fix</strong>: Use a grid system for consistency.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Tip</h4>
+                        <p>Sketch layouts on paper before digitizing to plan composition effectively.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Fun Fact</h4>
+                        <p>The rule of thirds, a composition principle, is used in photography and design to create dynamic layouts!</p>
+                    </div>
+                    <div class="detail-section quiz-container" id="quiz-layout-composition">
+                        <h4 class="detail-subheader">Practice Quiz</h4>
+                        <div class="quiz-question">1. What is the purpose of a grid system?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) To choose colors</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) To align elements</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) To select fonts</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) To adjust brightness</label></div>
+                        </div>
+                        <div class="quiz-question">2. What is white space?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Colored background</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) Empty space in design</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) Text area</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) Image area</label></div>
+                        </div>
+                        <div class="quiz-question">3. How can you create a focal point?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) Use small text</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) Use contrasting colors</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) Avoid images</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) Use same sizes</label></div>
+                        </div>
+                        <button class="submit-quiz" onclick="checkQuiz('layout-composition', {q1: 'b', q2: 'b', q3: 'b'})">Submit Quiz</button>
+                        <div class="quiz-result" id="result-layout-composition"></div>
+                    </div>
+                `
+            },
+            'branding': {
+                title: 'Branding',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Overview</h4>
+                        <p>Branding is about creating a consistent visual identity that communicates a company’s values and personality.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Key Concepts</h4>
+                        <ul class="detail-list">
+                            <li><strong>Logo</strong>: A unique symbol representing the brand.</li>
+                            <li><strong>Color Palette</strong>: Consistent colors that evoke brand emotions.</li>
+                            <li><strong>Typography</strong>: Fonts that align with brand personality.</li>
+                            <li><strong>Brand Guidelines</strong>: Rules for consistent application across media.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Example</h4>
+                        <p>Design a logo and color palette for a tech startup, using modern sans-serif fonts and a blue-orange scheme for innovation and energy.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Common Mistakes</h4>
+                        <ul class="detail-list">
+                            <li><strong>Mistake</strong>: Inconsistent branding across platforms. <strong>Fix</strong>: Create and follow brand guidelines.</li>
+                            <li><strong>Mistake</strong>: Overly complex logos. <strong>Fix</strong>: Keep logos simple and scalable.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Tip</h4>
+                        <p>Research your target audience to ensure your brand resonates with them.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Fun Fact</h4>
+                        <p>Apple’s logo is one of the most recognizable, symbolizing simplicity and innovation!</p>
+                    </div>
+                    <div class="detail-section quiz-container" id="quiz-branding">
+                        <h4 class="detail-subheader">Practice Quiz</h4>
+                        <div class="quiz-question">1. What is a brand guideline?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) A color wheel</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Rules for brand consistency</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) A font library</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) A design tool</label></div>
+                        </div>
+                        <div class="quiz-question">2. Why is a logo important?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) To fill space</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) To represent the brand</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) To adjust brightness</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) To choose fonts</label></div>
+                        </div>
+                        <div class="quiz-question">3. What should a brand’s color palette do?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) Be random</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) Evoke emotions</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) Use one color</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) Avoid contrast</label></div>
+                        </div>
+                        <button class="submit-quiz" onclick="checkQuiz('branding', {q1: 'b', q2: 'b', q3: 'b'})">Submit Quiz</button>
+                        <div class="quiz-result" id="result-branding"></div>
+                    </div>
+                `
+            },
+            'digital-tools': {
+                title: 'Digital Design Tools',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Overview</h4>
+                        <p>Digital design tools like Adobe Photoshop, Illustrator, and Figma are essential for creating professional graphics.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Key Tools</h4>
+                        <ul class="detail-list">
+                            <li><strong>Adobe Photoshop</strong>: For photo editing and raster graphics.</li>
+                            <li><strong>Adobe Illustrator</strong>: For vector graphics and logos.</li>
+                            <li><strong>Figma</strong>: For collaborative UI/UX design.</li>
+                            <li><strong>Canva</strong>: For quick, beginner-friendly designs.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Example</h4>
+                        <p>Use Adobe Illustrator to create a scalable vector logo that maintains quality at any size.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Common Mistakes</h4>
+                        <ul class="detail-list">
+                            <li><strong>Mistake</strong>: Using raster graphics for logos. <strong>Fix</strong>: Use vector tools like Illustrator for scalability.</li>
+                            <li><strong>Mistake</strong>: Ignoring keyboard shortcuts. <strong>Fix</strong>: Learn shortcuts to speed up workflow.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Tip</h4>
+                        <p>Start with free tools like GIMP or Canva before investing in premium software.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Fun Fact</h4>
+                        <p>Figma allows real-time collaboration, like Google Docs for design!</p>
+                    </div>
+                    <div class="detail-section quiz-container" id="quiz-digital-tools">
+                        <h4 class="detail-subheader">Practice Quiz</h4>
+                        <div class="quiz-question">1. Which tool is best for vector graphics?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Photoshop</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) Illustrator</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Canva</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Figma</label></div>
+                        </div>
+                        <div class="quiz-question">2. What is Figma primarily used for?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) Photo editing</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) UI/UX design</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) Video editing</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) 3D modeling</label></div>
+                        </div>
+                        <div class="quiz-question">3. Why use vector graphics for logos?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) Smaller file size</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) Scalability without quality loss</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) Easier to edit</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) Better colors</label></div>
+                        </div>
+                        <button class="submit-quiz" onclick="checkQuiz('digital-tools', {q1: 'b', q2: 'b', q3: 'b'})">Submit Quiz</button>
+                        <div class="quiz-result" id="result-digital-tools"></div>
+                    </div>
+                `
+            },
+            'ux-ui': {
+                title: 'UX/UI Design',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Overview</h4>
+                        <p>UX (User Experience) and UI (User Interface) design focus on creating intuitive, user-friendly digital products.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Key Concepts</h4>
+                        <ul class="detail-list">
+                            <li><strong>UX Design</strong>: Focuses on user journey, usability, and functionality.</li>
+                            <li><strong>UI Design</strong>: Focuses on visual elements like buttons, colors, and layouts.</li>
+                            <li><strong>Wireframes</strong>: Blueprints for layout and functionality.</li>
+                            <li><strong>Prototyping</strong>: Interactive mockups to test user flow.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Example</h4>
+                        <p>Create a wireframe for a mobile app home screen, ensuring clear navigation and a clean UI.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Common Mistakes</h4>
+                        <ul class="detail-list">
+                            <li><strong>Mistake</strong>: Prioritizing aesthetics over usability. <strong>Fix</strong>: Test designs with users to ensure functionality.</li>
+                            <li><strong>Mistake</strong>: Overloading interfaces. <strong>Fix</strong>: Simplify for clarity and ease of use.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Tip</h4>
+                        <p>Use tools like Figma or Adobe XD to create interactive prototypes.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Fun Fact</h4>
+                        <p>Good UX design can increase user retention by up to 200%!</p>
+                    </div>
+                    <div class="detail-section quiz-container" id="quiz-ux-ui">
+                        <h4 class="detail-subheader">Practice Quiz</h4>
+                        <div class="quiz-question">1. What does UX design focus on?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>a) Visual aesthetics</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>b) User journey and usability</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>c) Color selection</label></div>
+                            <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>d) Font pairing</label></div>
+                        </div>
+                        <div class="quiz-question">2. What is a wireframe?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>a) A final design</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>b) A layout blueprint</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>c) A color palette</label></div>
+                            <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>d) A font library</label></div>
+                        </div>
+                        <div class="quiz-question">3. Why is prototyping important?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>a) To choose colors</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>b) To test user flow</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>c) To select fonts</label></div>
+                            <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>d) To adjust brightness</label></div>
+                        </div>
+                        <button class="submit-quiz" onclick="checkQuiz('ux-ui', {q1: 'b', q2: 'b', q3: 'b'})">Submit Quiz</button>
+                        <div class="quiz-result" id="result-ux-ui"></div>
+                    </div>
+                `
+            },
+            'project-poster': {
+                title: 'Project: Create a Poster',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Project Overview</h4>
+                        <p>Design a poster for a fictional music festival, applying color theory and typography principles.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Steps</h4>
+                        <ul class="detail-list">
+                            <li><strong>Step 1</strong>: Choose a color scheme (e.g., analogous colors like blue, teal, and green).</li>
+                            <li><strong>Step 2</strong>: Select a bold typeface for the headline and a readable font for details.</li>
+                            <li><strong>Step 3</strong>: Use a grid to arrange elements, ensuring balanced white space.</li>
+                            <li><strong>Step 4</strong>: Add a vibrant image or illustration as the focal point.</li>
+                            <li><strong>Step 5</strong>: Export in high-resolution PDF for printing.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Tools</h4>
+                        <ul class="detail-list">
+                            <li>Adobe Photoshop or Canva for raster-based design.</li>
+                            <li>Adobe Illustrator for vector elements.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Tips</h4>
+                        <ul class="detail-list">
+                            <li>Keep text concise and prioritize readability.</li>
+                            <li>Test your design in grayscale to ensure contrast.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Challenge</h4>
+                        <p>Create two versions: one for print (300 DPI) and one for web (72 DPI).</p>
+                    </div>
+                `
+            },
+            'project-logo': {
+                title: 'Project: Design a Logo',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Project Overview</h4>
+                        <p>Create a logo for a fictional eco-friendly brand, focusing on simplicity and scalability.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Steps</h4>
+                        <ul class="detail-list">
+                            <li><strong>Step 1</strong>: Research eco-friendly brands for inspiration.</li>
+                            <li><strong>Step 2</strong>: Sketch 5-10 logo concepts on paper.</li>
+                            <li><strong>Step 3</strong>: Choose a color palette (e.g., greens and earth tones).</li>
+                            <li><strong>Step 4</strong>: Use Adobe Illustrator to create a vector-based logo.</li>
+                            <li><strong>Step 5</strong>: Test the logo in black and white and at small sizes.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Tools</h4>
+                        <ul class="detail-list">
+                            <li>Adobe Illustrator for vector design.</li>
+                            <li>Figma for collaborative feedback.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Tips</h4>
+                        <ul class="detail-list">
+                            <li>Keep the logo simple to ensure versatility.</li>
+                            <li>Avoid gradients for better scalability.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Challenge</h4>
+                        <p>Create a logo that works in both color and monochrome versions.</p>
+                    </div>
+                `
+            },
+            'project-social': {
+                title: 'Project: Social Media Graphics',
+                content: `
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Project Overview</h4>
+                        <p>Create a set of social media graphics for a fictional café’s promotion campaign.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Steps</h4>
+                        <ul class="detail-list">
+                            <li><strong>Step 1</strong>: Define dimensions (e.g., 1080x1080px for Instagram).</li>
+                            <li><strong>Step 2</strong>: Choose a warm color palette (e.g., coffee browns, creams).</li>
+                            <li><strong>Step 3</strong>: Select readable fonts for text overlays.</li>
+                            <li><strong>Step 4</strong>: Incorporate high-quality images of coffee or food.</li>
+                            <li><strong>Step 5</strong>: Export in PNG or JPEG for social media.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Tools</h4>
+                        <ul class="detail-list">
+                            <li>Canva for quick designs.</li>
+                            <li>Photoshop for advanced photo editing.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Tips</h4>
+                        <ul class="detail-list">
+                            <li>Ensure text is legible on small screens.</li>
+                            <li>Use consistent branding across all graphics.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4 class="detail-subheader">Challenge</h4>
+                        <p>Create a cohesive set of 3 graphics for Instagram, Twitter, and Facebook.</p>
+                    </div>
+                `
+            }
+        };
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-image');
+        const totalSlides = slides.length;
+
+        function updateSlider() {
+            const sliderContainer = document.getElementById('sliderContainer');
+            sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        function autoSlide() {
+            nextSlide();
+            setTimeout(autoSlide, 5000);
+        }
+
+        function initializeApp() {
+            createShapes();
+            setupEventListeners();
+            document.querySelectorAll('.knowledge-card, .section-title').forEach(el => {
+                el.classList.add('fade-in-up');
+            });
+            autoSlide();
+        }
+
+        function createShapes() {
+            const shapesContainer = document.getElementById('shapes');
+            const shapeTypes = ['circle', 'square', 'triangle'];
+            for (let i = 0; i < 20; i++) {
+                const shape = document.createElement('div');
+                shape.className = `shape ${shapeTypes[Math.floor(Math.random() * 3)]}`;
+                shape.style.width = `${Math.random() * 50 + 20}px`;
+                shape.style.height = shape.style.width;
+                shape.style.left = `${Math.random() * 100}%`;
+                shape.style.top = `${Math.random() * 100}%`;
+                shape.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                shape.style.animationDelay = `${Math.random() * 5}s`;
+                shapesContainer.appendChild(shape);
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const toggleIcon = document.querySelector('.mode-toggle i');
+            if (currentTheme === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                toggleIcon.classList.remove('fa-sun');
+                toggleIcon.classList.add('fa-moon');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                toggleIcon.classList.remove('fa-moon');
+                toggleIcon.classList.add('fa-sun');
+            }
+        }
+
+        function toggleDetail(knowledge) {
+            document.querySelectorAll('.quiz-result').forEach(result => {
+                result.style.display = 'none';
+                result.textContent = '';
+            });
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+            });
+            document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+
+            const overlay = document.getElementById('detailOverlay');
+            const title = document.getElementById('detailTitle');
+            const content = document.getElementById('detailContent');
+            const details = knowledgeDetails[knowledge];
+
+            if (details) {
+                title.textContent = details.title;
+                content.innerHTML = details.content;
+                overlay.style.display = 'flex';
+            }
+        }
+
+        function closeDetail() {
+            const overlay = document.getElementById('detailOverlay');
+            overlay.style.display = 'none';
+            document.querySelectorAll('.quiz-result').forEach(result => {
+                result.style.display = 'none';
+                result.textContent = '';
+            });
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+            });
+            document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+        }
+
+        function checkQuiz(quizId, answers) {
+            const quizContainer = document.getElementById(`quiz-${quizId}`);
+            const resultElement = document.getElementById(`result-${quizId}`);
+            let correctCount = 0;
+            let totalQuestions = Object.keys(answers).length;
+            let allAnswered = true;
+
+            for (let question in answers) {
+                const selectedOption = quizContainer.querySelector(`input[name="${question}"]:checked`);
+                const correctAnswer = answers[question];
+
+                if (!selectedOption) {
+                    allAnswered = false;
+                    break;
+                }
+
+                const optionElement = selectedOption.parentElement;
+                if (selectedOption.value === correctAnswer) {
+                    optionElement.classList.add('correct');
+                    correctCount++;
+                } else {
+                    optionElement.classList.add('incorrect');
+                    const correctOption = quizContainer.querySelector(`input[name="${question}"][value="${correctAnswer}"]`);
+                    if (correctOption) {
+                        correctOption.parentElement.classList.add('correct');
+                    }
+                }
+            }
+
+            if (!allAnswered) {
+                resultElement.textContent = 'Please answer all questions!';
+                resultElement.classList.remove('success', 'error');
+                resultElement.classList.add('error');
+                resultElement.style.display = 'block';
+                return;
+            }
+
+            resultElement.textContent = `You scored ${correctCount} out of ${totalQuestions}!`;
+            resultElement.classList.remove('success', 'error');
+            resultElement.classList.add(correctCount === totalQuestions ? 'success' : 'error');
+            resultElement.style.display = 'block';
+        }
+
+        function setupEventListeners() {
+            document.querySelectorAll('.knowledge-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const card = link.closest('.knowledge-card');
+                    const knowledge = card.getAttribute('data-knowledge');
+                    toggleDetail(knowledge);
+                });
+            });
+
+            document.getElementById('detailOverlay').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('detailOverlay')) {
+                    closeDetail();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeDetail();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
